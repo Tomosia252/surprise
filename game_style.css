@@ -1,0 +1,82 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { background: #2a0820; color: #fff; height: 100vh; width: 100vw; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+
+/* MANAJEMEN LAYAR / SCREEN */
+.screen { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; display: none; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(to bottom, #2a0820, #541c38); z-index: 10; }
+.screen.active { display: flex; animation: fade 0.5s forwards; }
+
+/* KOTAK PESAN & MODAL UMUM */
+.box-msg, .modal-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; text-align: center; width: 85%; max-width: 350px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 999; }
+.modal-box { background: white; color: #333; }
+.modal-box p { margin: 15px 0; line-height: 1.5; }
+.btn-play { background: linear-gradient(to right, #ff6b81, #ff4757); color: white; border: none; margin-top: 15px; padding: 10px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(255,107,129,0.4); transition: transform 0.2s; }
+.btn-play:active { transform: scale(0.95); }
+
+/* --- GAME 1: CATCH --- */
+.game-info { width: 90%; max-width: 400px; text-align: left; margin-bottom: 10px; }
+.game-info span { font-size: 1.5rem; color: #ff6b81; font-weight: bold; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 15px; }
+#game-area { width: 90%; max-width: 400px; height: 60vh; border: 2px solid #ff6b81; border-radius: 15px; position: relative; overflow: hidden; background: rgba(0,0,0,0.3); }
+#basket { font-size: 3rem; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); transition: left 0.05s linear; z-index: 5; }
+.item { position: absolute; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; font-size: 35px; }
+
+/* --- GAME 2: PUZZLE --- */
+#puzzle-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 300px; height: 300px; background: rgba(255,255,255,0.1); padding: 5px; border-radius: 10px; margin: 0 auto;}
+.piece { width: 100%; height: 100%; background-size: 300px 300px; cursor: pointer; border-radius: 5px; transition: 0.2s; }
+.piece.selected { border: 3px solid #f1c40f; transform: scale(0.9); }
+
+/* =========================================================
+   UI CHAT (100% IDENTIK DENGAN HALAMAN AWAL) 
+   ========================================================= */
+.chat-interface { width: 100%; height: 100%; max-width: 450px; background: #1e0516; display: flex; flex-direction: column; position: relative; margin: 0 auto; }
+@media (min-width: 451px) { .chat-interface { height: 85vh; border-radius: 20px; border: 1px solid rgba(255, 105, 180, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5); } }
+.chat-header { padding: 10px 15px; background: rgba(255, 107, 129, 0.2); display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.back-btn i { color: #fff; font-size: 1.2rem; cursor: pointer; }
+.avatar { width: 40px; height: 40px; background-color: #ddd; border-radius: 50%; background-size: cover; background-position: center; border: 2px solid #ff6b81; }
+.chat-info { flex: 1; }
+.chat-info h4 { margin: 0; font-size: 1rem; color: #fff; }
+.chat-info span { font-size: 0.75rem; color: #ffb7b2; }
+
+#chat-body { flex: 1; overflow-y: auto; padding: 20px 10px; display: flex; flex-direction: column; gap: 15px; background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 20px 20px; }
+.msg { max-width: 75%; padding: 8px 12px; border-radius: 15px; font-size: 0.95rem; position: relative; line-height: 1.4; word-wrap: break-word; animation: popIn 0.3s forwards; }
+.msg-in { align-self: flex-start; background: rgba(255, 255, 255, 0.15); color: #ffd1dc; border-top-left-radius: 0; border: 1px solid rgba(255,255,255,0.1); }
+.msg-out { align-self: flex-end; background: #ff6b81; color: white; border-top-right-radius: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.msg audio { height: 30px; max-width: 200px; border-radius: 20px; margin-top: 5px; filter: invert(1); opacity: 0.8; }
+
+.chat-input-area { padding: 10px; background: #2a0820; display: flex; align-items: center; gap: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+.input-placeholder { flex: 1; background: rgba(255,255,255,0.1); padding: 12px 15px; border-radius: 25px; color: #aaa; font-size: 0.9rem; }
+.btn-mic, .btn-send, .btn-secondary { width: 45px; height: 45px; border-radius: 50%; border: none; color: white; font-size: 1.2rem; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.2s; }
+.btn-mic { background: #ff6b81; }
+.btn-send { background: #3498db; }
+.btn-secondary { background: rgba(255, 255, 255, 0.2); }
+.recording { background: #e74c3c !important; animation: pulse-red 1s infinite; }
+
+/* --- KADO & VIDEO --- */
+.gift-container-wrapper { position: relative; height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.gift-box { position: relative; width: 160px; height: 140px; cursor: pointer; z-index: 10; animation: floatPremium 3s ease-in-out infinite, shimmerBox 2s infinite linear; }
+.gift-box:hover { animation: shakeBox 0.5s infinite; }
+.body { width: 100%; height: 85%; background: linear-gradient(to bottom right, #ff758c, #ff7eb3); position: absolute; bottom: 0; border-radius: 0 0 12px 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); overflow: hidden; }
+.body::before { content: ''; position: absolute; width: 100%; height: 100%; background-image: radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2px); background-size: 15px 15px; opacity: 0.5; }
+.body::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 25px; height: 100%; background: linear-gradient(to right, #ffd700, #ffec8b, #ffd700); }
+.lid { width: 110%; height: 35px; background: linear-gradient(to bottom right, #ff4757, #ff6b81); position: absolute; top: 15px; left: -5%; border-radius: 12px 12px 5px 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2; transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+.lid::before { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 25px; height: 100%; background: linear-gradient(to right, #ffd700, #ffec8b, #ffd700); }
+.bow { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); width: 60px; height: 30px; }
+.bow::before, .bow::after { content: ''; position: absolute; width: 30px; height: 30px; background: radial-gradient(circle at center, #ffd700, #e6c200); border-radius: 50% 50% 0 50%; top: 0; }
+.bow::before { left: 0; transform: rotate(-45deg); }
+.bow::after { right: 0; transform: rotate(135deg); }
+.gift-text { margin-top: 30px; font-weight: bold; color: #ffd700; text-shadow: 0 2px 5px rgba(0,0,0,0.5); animation: blinkPremium 1.5s infinite alternate; transition: opacity 0.5s; }
+.gift-box.open .lid { transform: translateY(-150px) rotate(-20deg) scale(1.1); opacity: 0; }
+.gift-box.open .body { transform: translateY(50px) scale(0.9); opacity: 0; transition: all 0.8s ease-in; }
+.gift-text.hidden { opacity: 0; }
+.confetti { position: absolute; font-size: 28px; top: 50%; left: 50%; z-index: 5; pointer-events: none; }
+#video-area { width: 90%; max-width: 400px; margin: 0 auto; text-align: center; animation: fade 1s; }
+#video-area video { width: 100%; border-radius: 15px; box-shadow: 0 0 20px rgba(255,107,129,0.5); }
+#pesan-wa { width: 100%; height: 100px; margin: 15px 0; border-radius: 10px; padding: 10px; font-family: inherit; }
+
+@keyframes fade { from {opacity:0} to {opacity:1} }
+@keyframes popIn { from { transform: scale(0); opacity:0;} to { transform: scale(1); opacity:1;} }
+@keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); } 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); } }
+@keyframes floatPremium { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes shakeBox { 0% { transform: rotate(0deg); } 25% { transform: rotate(2deg); } 50% { transform: rotate(0deg); } 75% { transform: rotate(-2deg); } 100% { transform: rotate(0deg); } }
+@keyframes shimmerBox { 0% { filter: brightness(1); } 50% { filter: brightness(1.1) drop-shadow(0 0 5px #ffd700); } 100% { filter: brightness(1); } }
+@keyframes blinkPremium { from { opacity: 1; transform: scale(1); } to { opacity: 0.7; transform: scale(0.95); } }
