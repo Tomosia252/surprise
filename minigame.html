@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Games & Gift ❤️</title>
+    <link rel="stylesheet" href="game_style.css?v=foto-basket">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <audio id="bg-music" loop><source src="musik.mp3" type="audio/mpeg"></audio>
+
+    <div id="intro-screen" class="screen active">
+        <div class="box-msg">
+            <p>Yey udah sampe nih! 🎉</p>
+            <p>Lanjut main game dulu yaa...</p>
+            <button class="btn-play" onclick="startGame1()">Siap!</button>
+        </div>
+    </div>
+
+    <div id="game1-screen" class="screen">
+        <div class="game-info"><span>Skor: <b id="score">0</b>/100</span></div>
+        <div id="game-area">
+            <div id="basket"></div>
+        </div>
+        <div id="g1-tutorial" class="modal">
+            <div class="modal-box">
+                <h3>Tangkap Cintaku! ❤️</h3>
+                <p>Geser wajahku untuk menangkap barang yang jatuh.</p>
+                <button class="btn-play" onclick="runGame1()">Mulai</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="transisi-screen" class="screen">
+        <div class="box-msg">
+            <p>Game pertama udah nih... Jago juga! 😋</p>
+            <p>Satu lagi yok!</p>
+            <button class="btn-play" onclick="startGame2()">Lanjut</button>
+        </div>
+    </div>
+
+    <div id="game2-screen" class="screen">
+        <h3 style="color: #ff6b81; margin-bottom: 10px;">Level <span id="level-text">1</span>/3</h3>
+        <div id="puzzle-board"></div>
+        <div id="g2-tutorial" class="modal">
+            <div class="modal-box">
+                <h3>Puzzle Kenangan</h3>
+                <p>Klik 2 kotak untuk menukar posisinya sampai gambar benar.</p>
+                <button class="btn-play" onclick="initGame2()">Mulai</button>
+            </div>
+        </div>
+        <div id="level-up-modal" class="modal" style="display: none;">
+            <div class="modal-box">
+                <h3 id="level-up-title" style="color: #ff6b81;">Level 1 Selesai! 🎉</h3>
+                <p>Pinter banget sayangku!</p>
+                <button class="btn-play" onclick="proceedNextLevel()">Lanjut</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="chat-screen" class="screen">
+        <div class="box-msg" id="chat-intro">
+            <p>Yey udah selesai! 🥳</p>
+            <p>Udah ya mainnya, seru engga?</p>
+            <button class="btn-play" onclick="enterChatRoom()">Seru dong!</button>
+        </div>
+
+        <div class="chat-interface" id="chat-interface" style="display: none;">
+            <div class="chat-header">
+                <div class="back-btn"><i class="fas fa-arrow-left"></i></div>
+                <div class="avatar" style="background-image: url('profil_doi.jpg');"></div>
+                <div class="chat-info">
+                    <h4>my bubub</h4>
+                    <span>Online</span>
+                </div>
+            </div>
+            
+            <div id="chat-body"></div>
+
+            <div class="chat-input-area">
+                <div class="input-placeholder" id="input-status">Ketuk mic untuk balas...</div>
+                
+                <button id="btn-mic" class="btn-mic" style="display: none;"><i class="fas fa-microphone"></i></button>
+                
+                <div id="preview-controls" style="display: none; flex: 1; justify-content: flex-end; gap: 10px;">
+                    <button id="btn-trash" class="btn-secondary"><i class="fas fa-trash"></i></button>
+                    <button id="btn-play-preview" class="btn-secondary"><i class="fas fa-play" id="icon-play"></i></button>
+                    <button id="btn-send" class="btn-send"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                
+                <button id="btn-next-chat" class="btn-send" style="display: none;"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="gift-screen" class="screen">
+        <div class="gift-container-wrapper">
+            <div class="gift-box" onclick="openGift()">
+                <div class="lid"><div class="bow"></div></div>
+                <div class="body"></div>
+            </div>
+            <p class="gift-text" id="gift-text-hint">Ketuk Kado Untuk Membuka! 🎁</p>
+        </div>
+        <div id="video-area" style="display: none;">
+            <video id="vid-kenangan" controls width="100%">
+                <source src="kenangan.mp4" type="video/mp4">
+            </video>
+            <button class="btn-play" onclick="finishVideo()" style="margin-top: 15px;">Selesai Nonton ❤️</button>
+        </div>
+    </div>
+
+    <div id="outro-screen" class="screen">
+        <div class="box-msg">
+            <p>Yey udah selesai ❤️</p>
+            <p>Maaf ya hadiahnya ga seberapa mhehehe...</p>
+            <p>Oh iya, VN doa kamu tadi jangan lupa dikirim ke WA aku ya, aku pengen denger! 🥺❤️</p>
+            <textarea id="pesan-wa" placeholder="Ketik pesan buat aku di sini..."></textarea>
+            <button class="btn-play" onclick="kirimWA()">Kirim ke WA 💌</button>
+        </div>
+    </div>
+
+    <script src="game_script.js?v=puzzle-vn-fix"></script>
+</body>
+</html>
